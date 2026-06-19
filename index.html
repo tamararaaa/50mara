@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 años de Mara – RSVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul: #195084; 
+  --azul-mid: #3a6ab0;
+  --azul-claro: #93AED4;
+  --azul-pale: #c8daf5;
+  --azul-ghost: #eaf2fc;
+  --text: #1a2a4a;
+  --text-mid: #3a5080;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body
+{
+  min-height:100%;
+  overflow-x:hidden;
+}
+body {
+  font-family:'Lato',sans-serif;
+  color:var(--text);
+
+  margin:0;
+  padding:0;
+
+  min-height:100vh;
+  width:100%;
+
+  background-image: url('img/fondo.png');
+  background-repeat: no-repeat;
+
+  /* IMPORTANTE */
+  background-position: center center;
+
+  /* Hace que SIEMPRE se vea completa */
+  background-size: 100% 100%;
+
+  /* evita bugs en celular */
+  background-attachment: scroll;
+
+  overflow-x:hidden;
+}
+
+.screen { display:none; min-height:100vh; position:relative; align-items:center; justify-content:center; overflow:hidden; }
+.screen.active { display:flex; }
+
+.card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 40px 28px;
+  max-width: 480px;
+  width: 92%;
+  position: relative;
+  z-index: 10;
+  box-shadow: none;
+}
+
+.card-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 80vh;
+}
+
+.ornament {
+  display:flex; align-items:center; gap:8px;
+  color:var(--azul-claro); font-size:10px; margin:10px 0;
+}
+.ornament::before, .ornament::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(90deg, transparent, var(--azul-claro), transparent);
+}
+
+.num50 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(80px,16vw,120px);
+  font-weight:600; color:var(--azul);
+  line-height:1; letter-spacing:-2px;
+}
+.script-name {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(54px,12vw,84px);
+  color:var(--azul); line-height:1.05;
+}
+.label-elegante {
+  font-family:'EB Garamond',serif;
+  font-style: bold; font-weight:300;
+  font-size:15px; color:var(--azul);
+  letter-spacing:0.5px;
+}
+.subtitle {
+  font-family:'EB Garamond',serif;
+  font-size:16px; font-style:bold;
+  font-weight:300; color:var(--text-mid); line-height:1.6;
+}
+
+.btn-primary {
+  width:100%; padding:13px;
+  background:var(--azul); color:white; border:none;
+  border-radius:12px; font-family:'Lato',sans-serif;
+  font-size:13px; font-weight:400; letter-spacing:1.5px;
+  cursor:pointer; transition:background .2s, transform .15s;
+}
+.btn-primary:hover { background:#1a3a6b; transform:translateY(-1px); }
+.btn-outline {
+  width:100%; padding:12px;
+  background:transparent; color:var(--azul);
+  border:1.5px solid var(--azul-claro);
+  border-radius:12px; font-family:'Lato',sans-serif;
+  font-size:13px; letter-spacing:1px;
+  cursor:pointer; transition:all .2s; margin-top:10px;
+}
+.btn-back {
+  width:100%;
+  padding:13px;
+  background:var(--azul);
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-family:'Lato',sans-serif;
+  font-size:13px;
+  letter-spacing:1.5px;
+  cursor:pointer;
+  transition:background .2s;
+  margin-top:10px;
+}
+
+.btn-back:hover {
+  background:#1a3a6b;
+}
+
+.btn-next {
+  width:100%; padding:13px;
+  background:var(--azul); color:white; border:none;
+  border-radius:12px; font-family:'Lato',sans-serif;
+  font-size:13px; letter-spacing:1.5px;
+  cursor:pointer; transition:background .2s;
+  margin-top:16px;
+}
+.btn-next:hover { background:#1a3a6b; }
+
+.form-label {
+  font-size:13px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--azul-claro);
+  font-weight:400; display:block; margin-bottom:6px;
+}
+.form-input, .form-textarea {
+  width:100%; padding:10px 14px;
+  border:1.5px solid var(--azul-pale);
+  border-radius:10px; font-family:'Lato',sans-serif;
+  font-size:14px; color:var(--text);
+  background:rgba(255,255,255,0.9);
+  outline:none; transition:border-color .2s;
+}
+.form-input:focus, .form-textarea:focus { border-color:var(--azul); }
+.form-textarea { resize:vertical; min-height:80px; }
+.form-group { margin-bottom:16px; }
+
+.radio-row { display:flex; gap:8px; flex-wrap:wrap; }
+.radio-chip {
+  padding:7px 13px;
+  border:1.5px solid var(--azul-pale);
+  border-radius:20px; cursor:pointer;
+  font-size:12px; color:var(--text);
+  transition:all .18s; display:flex;
+  align-items:center; gap:6px;
+  background:white; font-family:'Lato',sans-serif;
+}
+.radio-chip input { display:none; }
+.radio-chip:hover { border-color:var(--azul); }
+.radio-chip.checked { background:var(--azul-ghost); border-color:var(--azul); color:var(--azul); }
+
+.attend-row { display:flex; gap:12px; margin:18px 0 0; }
+.attend-btn {
+  flex:1; padding:12px 8px;
+  border:1.5px solid var(--azul-pale);
+  border-radius:14px; background:rgba(255,255,255,0.85);
+  cursor:pointer; font-family:'Lato',sans-serif;
+  font-size:13px; color:var(--text);
+  transition:all .2s; text-align:center;
+}
+.attend-btn:hover { border-color:var(--azul); background:var(--azul-ghost); }
+.attend-btn.sel-yes { background:var(--azul-ghost); border-color:var(--azul); color:var(--azul); font-weight:700; }
+.attend-btn.sel-no { background:#fff4f4; border-color:#e0a0a0; color:#7a2020; font-weight:700; }
+
+.info-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid rgba(147,174,212,0.3); }
+.info-row:last-child { border-bottom:none; }
+.info-icon { width:30px; height:30px; flex-shrink:0; background:rgba(255,255,255,0.7); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.info-icon svg { width:15px; height:15px; fill:none; stroke:var(--azul); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.info-text { font-size:13px; color:var(--text); padding-top:2px; }
+.info-text small { display:block; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--azul-claro); margin-bottom:3px; }
+
+#map {
+  height:180px;
+  border-radius:12px;
+  border:1px solid var(--azul-pale);
+  margin:12px 0;
+  overflow:hidden;
+  width:100%;
+}
+
+.hr { border:none; border-top:1px solid rgba(147,174,212,0.4); margin:16px 0; }
+
+.detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.detail-tile { background:rgba(234,242,252,0.8); border-radius:10px; padding:10px 12px; }
+.detail-tile .dt-l { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--azul-claro); margin-bottom:3px; }
+.detail-tile .dt-v { font-size:13px; color:var(--azul); }
+
+.dots { display:flex; gap:7px; justify-content:center; position:relative; z-index:10; margin-top:20px; }
+.dot { width:6px; height:6px; border-radius:50%; background:var(--azul-pale); transition:background .3s; }
+.dot.on { background:var(--azul); }
+
+.loader { position:fixed; inset:0; background:rgba(245,247,252,0.88); display:none; align-items:center; justify-content:center; flex-direction:column; gap:14px; z-index:200; }
+.loader.on { display:flex; }
+.spinner { width:36px; height:36px; border:3px solid var(--azul-pale); border-top-color:var(--azul); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+.persona-section { border-top:1px solid rgba(147,174,212,0.3); padding-top:14px; margin-top:14px; }
+.persona-section:first-child { border-top:none; padding-top:0; margin-top:0; }
+.persona-nombre { font-family:'EB Garamond',serif; font-style:bold; font-size:16px; color:var(--azul); margin-bottom:10px; font-weight:400; }
+
+@media (max-width:720px) {
+  .card { padding:32px 20px 60px; width:min(96%,100%); }
+  .attend-row { flex-direction:column; }
+  .attend-btn { width:100%; }
+  #map { height:160px; }
+  .num50 { font-size:clamp(70px,18vw,100px); }
+}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div class="spinner"></div><p style="color:var(--azul);font-size:13px;letter-spacing:1px;">Un momento...</p></div>
+
+<!-- ===== S0: BIENVENIDA ===== -->
+<div class="screen active" id="s0">
+  
+  <div style="display:flex;flex-direction:column;align-items:center;z-index:10;width:100%;padding:40px 0;">
+    <div class="card card-centered">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--azul-ghost);border:1px solid var(--azul-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;overflow:hidden;">
+        <img src="img/logo.jpeg" alt="Logo" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+      </div>
+      <p class="label-elegante" style="margin-bottom:14px;"></p>
+      <div class="script-name" style="font-size:68px;">Bienvenidos</div>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="margin-bottom:28px;">Gracias por tomarte un momento<br>para ser parte de este festejo especial.</p>
+      <button class="btn-primary" onclick="go('s1')" style="width:60%;margin:0 auto;display:block;">Ingresar</button>
+    </div>
+    <div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S1: 50 / MARA + CÓDIGO ===== -->
+<div class="screen" id="s1">
+ 
+  <div style="display:flex;flex-direction:column;align-items:center;z-index:10;width:100%;padding:40px 0;">
+    <div class="card card-centered">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--azul-ghost);border:1px solid var(--azul-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;overflow:hidden;">
+        <img src="img/logo.jpeg" alt="Logo" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+      </div>
+      <p class="label-elegante">Festejemos juntos mis</p>
+      <div class="num50">50</div>
+      <div class="script-name">Mara</div>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="margin-bottom:22px;">El 18 de julio nos juntamos a celebrar.<br>¡Nos encantaría que puedas estar!</p>
+      <div class="form-group" style="text-align:center;width:100%;">
+        <label class="form-label">Tu código de invitación</label>
+        <div style="display:flex;gap:10px;">
+          <input type="text" class="form-input" id="codigoInput" placeholder="Ej: Tu código" maxlength="10" style="text-transform:uppercase;letter-spacing:2px;"/>
+          <button class="btn-primary" style="width:auto;padding:10px 18px;white-space:nowrap;" onclick="validarCodigo()">Ingresar</button>
+        </div>
+        <p id="codigoError" style="color:#c0392b;font-size:12px;margin-top:8px;display:none;">Código no encontrado. Verificá e intentá de nuevo.</p>
+      </div>
+    </div>
+<button class="btn-primary"
+        onclick="go('s0')"
+        style="margin-top:16px;width:180px;">
+  Volver
+</button>
+    <div class="dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S2: INFO DEL EVENTO ===== -->
+<div class="screen" id="s2" style="flex-direction:column;padding:30px 0;">
+ 
+  <div style="width:90%;max-width:420px;z-index:10;margin:auto;">
+    <div class="card">
+      <p class="label-elegante" style="text-align:center;">El festejo</p>
+      <div class="ornament">♡</div>
+      <div id="map">
+  <iframe
+    src="https://www.google.com/maps?q=Estancia+El+Recuerdo+Agote&output=embed"
+    width="100%"
+    height="100%"
+    style="border:0;border-radius:12px;"
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
+</div>
+      <div class="info-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="info-text"><small>Lugar</small>Estancia El Recuerdo<br><span style="font-size:12px;color:var(--text-mid);">C. 505 y 30 Bis, B6608 Agote, Prov. Bs As</span></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="info-text"><small>Fecha</small>Sábado 18 de julio</div>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="info-text"><small>Horario</small>De 13:00 hs a 22:00 hs</div>
+      </div>
+      <div id="avisoModificacion" style="display:none;background:#d3e0f36f;border:1px solid #c5c6fb;border-radius:10px;padding:10px 14px;margin-top:14px;font-size:13px;color:#000000;text-align:center;">
+         Ya respondiste antes. Podés modificar tu respuesta.
+      </div>
+      <div class="hr"></div>
+      <div class="attend-row">
+        <button class="attend-btn" id="btnY" onclick="pick('yes')">Voy a asistir</button>
+        <button class="attend-btn" id="btnN" onclick="pick('no')">No puedo asistir</button>
+      </div>
+      <button class="btn-back" onclick="go('s1')">
+      Volver
+      </button>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S3FORM: QUIÉNES VAN + MAIL/TEL ===== -->
+<div class="screen" id="s3form" style="flex-direction:column;padding:30px 0;">
+  
+  <div style="width:90%;max-width:420px;z-index:10;margin:auto;">
+    <div class="card">
+      <p class="label-elegante" style="text-align:center;"></p>
+      <div class="ornament">♡</div>
+      <div class="form-group">
+        <label class="form-label">¿Quiénes van a asistir?</label>
+        <p class="subtitle" style="font-size:18px;margin-bottom:10px;">Seleccioná todos los que van a ir.</p>
+        <div id="grupoCheckboxes" class="radio-row"></div>
+      </div>
+      <div class="hr"></div>
+      <div id="datosPersona"></div>
+      <button class="btn-next" onclick="go('s3dieta')">Siguiente</button>
+      <button class="btn-back" onclick="go('s2')">Volver</button>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S3DIETA: DIETA ===== -->
+<div class="screen" id="s3dieta" style="flex-direction:column;padding:30px 0;">
+  
+  <div style="width:90%;max-width:420px;z-index:10;margin:auto;">
+    <div class="card">
+      <p class="label-elegante" style="text-align:center;">Restricciones alimentarias</p>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="font-size:18px;margin-bottom:16px;text-align:center;">Seleccioná la opción para cada persona.</p>
+      <div id="dietasPorPersona"></div>
+      <button class="btn-next" onclick="go('s3transporte')">Siguiente</button>
+      <button class="btn-back" onclick="go('s3form')">Volver</button>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S3TRANSPORTE: TRANSPORTE ===== -->
+<div class="screen" id="s3transporte" style="flex-direction:column;padding:30px 0;">
+  
+  <div style="width:90%;max-width:420px;z-index:10;margin:auto;">
+    <div class="card">
+      <p class="label-elegante" style="text-align:center;">Transporte</p>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="font-size:14px;margin-bottom:16px;text-align:center;">Charter solo desde CABA.</p>
+      <div id="transportePorPersona"></div>
+      <button class="btn-next" onclick="submit('yes')">Confirmar asistencia</button>
+      <button class="btn-back" onclick="go('s3dieta')">Volver</button>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S3YES: GRACIAS (ASISTE) ===== -->
+<div class="screen" id="s3yes">
+  
+  <div style="width:90%;max-width:420px;z-index:10;">
+    <div class="card card-centered">
+      <p class="label-elegante" style="margin-bottom:6px;">Confirmado</p>
+      <div class="script-name" style="font-size:60px;">Gracias</div>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="margin-bottom:18px;">¡Qué bueno que van a poder estar!<br>¡Mara los espera!</p>
+      <div class="detail-grid" style="width:100%;">
+        <div class="detail-tile"><p class="dt-l">Fecha</p><p class="dt-v">18 de julio</p></div>
+        <div class="detail-tile"><p class="dt-l">Horario</p><p class="dt-v">13 a 22 hs</p></div>
+        <div class="detail-tile" style="grid-column:span 2;"><p class="dt-l">Lugar</p><p class="dt-v">Estancia El Recuerdo — Agote, Bs As</p></div>
+        <div class="detail-tile" style="grid-column:span 2;"><p class="dt-l">Vestimenta</p><p class="dt-v">Elegante sport (sin traje ni tacos)</p></div>
+      </div>
+      <div class="hr" style="width:100%;"></div>
+      <p class="subtitle" style="font-size:14px;">Próximamente te vamos a estar enviando más información sobre el evento.</p>
+      <div id="codeBadge" style="display:none;"></div>
+    </div>
+<button class="btn-primary"
+        onclick="go('s0')"
+        style="margin-top:22px;width:180px;display:block;margin-left:auto;margin-right:auto;">
+  Salir
+</button>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S3NO: QUE LÁSTIMA ===== -->
+<div class="screen" id="s3no">
+ 
+  <div style="width:90%;max-width:420px;z-index:10;">
+    <div class="card card-centered">
+      <p class="label-elegante" style="margin-bottom:6px;">¡Qué lástima!</p>
+      <div class="script-name" style="font-size:56px;">Te vamos a extrañar</div>
+      <div class="ornament">♡</div>
+      <p class="subtitle" style="margin-bottom:18px;">Dejale un mensajito a Mara.</p>
+      <div class="form-group" style="text-align:left;width:100%;">
+        <label class="form-label">Tu nombre</label>
+        <input type="text" class="form-input" id="nameNo" placeholder="Nombre y apellido"/>
+      </div>
+      <div class="form-group" style="text-align:left;width:100%;">
+        <label class="form-label">Mensaje para Mara (opcional)</label>
+        <textarea class="form-textarea" id="msgNo" placeholder="Dejale tus mejores deseos..." style="min-height:100px;"></textarea>
+      </div>
+      <button class="btn-primary" onclick="submit('no')" style="width:100%;">Enviar</button>
+      <button class="btn-outline" onclick="submit('skip')" style="width:100%;">Omitir</button>
+      <button class="btn-back" onclick="go('s2')">Volver</button>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- ===== S4NO: MENSAJE ENVIADO ===== -->
+<div class="screen" id="s4no">
+ 
+  <div style="width:90%;max-width:420px;z-index:10;">
+    <div class="card card-centered">
+      <p class="label-elegante" style="margin-bottom:6px;">Mensaje enviado</p>
+      <div class="script-name" style="font-size:60px;">Gracias</div>
+      <div class="ornament">♡</div>
+      <p class="subtitle">Lamentamos que no puedas estar,<br>pero Mara va a recibir tu cariño con mucho amor.<br><br>¡Ojalá podamos compartir otro festejo pronto!</p>
+    </div>
+    <button class="btn-primary"
+        onclick="go('s0')"
+        style="margin-top:22px;width:180px;">
+  Salir
+</button>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+  </div>
+</div>
+
+<script>
+let mapInited = false;
+let invitadoActual = null;
+let grupoActual = [];
+let respuestaPreviaActual = null;
+
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const codigo = params.get('c');
+  if (codigo) document.getElementById('codigoInput').value = codigo.toUpperCase();
+});
+
+function go(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+async function validarCodigo() {
+  const codigo = document.getElementById('codigoInput').value.trim().toUpperCase();
+  const errorEl = document.getElementById('codigoError');
+  if (!codigo) return;
+
+  document.getElementById('loader').classList.add('on');
+  errorEl.style.display = 'none';
+
+  try {
+    const res = await fetch('https://50mara.com.ar/api/validar.php', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ codigo })
+    });
+    const data = await res.json();
+    document.getElementById('loader').classList.remove('on');
+
+    if (!data.ok) {
+      errorEl.textContent = 'Código no encontrado. Verificá e intentá de nuevo.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    invitadoActual = { id:data.id, nombre:data.nombre, grupo_id:data.grupo_id, es_individual:data.es_individual };
+    grupoActual = data.grupo;
+    respuestaPreviaActual = data.respuesta_previa || null;
+
+    const avisoEl = document.getElementById('avisoModificacion');
+    if (avisoEl) avisoEl.style.display = data.ya_respondio ? 'block' : 'none';
+
+    go('s2');
+
+  } catch (e) {
+    document.getElementById('loader').classList.remove('on');
+    errorEl.textContent = 'Error de conexión. Intentá de nuevo.';
+    errorEl.style.display = 'block';
+  }
+}
+
+function pick(val) {
+  document.getElementById('btnY').className = 'attend-btn' + (val==='yes' ? ' sel-yes' : '');
+  document.getElementById('btnN').className = 'attend-btn' + (val==='no' ? ' sel-no' : '');
+
+  if (val === 'no') {
+    if (respuestaPreviaActual && respuestaPreviaActual.tipo === 'no') {
+      const nameNoEl = document.getElementById('nameNo');
+      const msgNoEl  = document.getElementById('msgNo');
+      if (nameNoEl && !nameNoEl.value) nameNoEl.value = respuestaPreviaActual.nombre  || '';
+      if (msgNoEl  && !msgNoEl.value)  msgNoEl.value  = respuestaPreviaActual.mensaje || '';
+    }
+    go('s3no'); return;
+  }
+
+  const container = document.getElementById('grupoCheckboxes');
+  container.innerHTML = '';
+
+  if (invitadoActual.es_individual) {
+    const label = document.createElement('label');
+    label.className = 'radio-chip checked';
+    label.innerHTML = '<input type="checkbox" name="grupo" value="' + invitadoActual.id + '" checked style="display:inline;margin-right:4px;"> ' + invitadoActual.nombre;
+    container.appendChild(label);
+  } else {
+    grupoActual.forEach(p => {
+      const label = document.createElement('label');
+      label.className = 'radio-chip checked';
+      label.innerHTML = '<input type="checkbox" name="grupo" value="' + p.id + '" checked style="display:inline;margin-right:4px;" onchange="actualizarFormularios()"> ' + p.nombre;
+      container.appendChild(label);
+    });
+  }
+
+  actualizarFormularios();
+  go('s3form');
+}
+
+function actualizarFormularios() {
+  const seleccionados = [...document.querySelectorAll('input[name="grupo"]:checked')];
+
+  const datosDiv = document.getElementById('datosPersona');
+  datosDiv.innerHTML = '';
+  const dietasDiv = document.getElementById('dietasPorPersona');
+  dietasDiv.innerHTML = '';
+  const transporteDiv = document.getElementById('transportePorPersona');
+  transporteDiv.innerHTML = '';
+
+  const opcDieta = ['ninguna','vegetariano','vegano','celiaco','otro'];
+  const opcTransporte = [
+    {val:'p1', label:'B. de Irigoyen y San Juan'},
+    {val:'p2', label:'B. de Irigoyen e Independencia'},
+    {val:'p3', label:'B. de Irigoyen y Venezuela'},
+    {val:'p4', label:'B. de Irigoyen y Av. H. Yrigoyen'},
+    {val:'p5', label:'C. Pellegrini y Av. Córdoba'},
+    {val:'p6', label:'C. Pellegrini y Av. Santa Fe'},
+    {val:'p7', label:'Av. Santa Fe y Av. Callao'},
+    {val:'p8', label:'Av. Santa Fe y Av. Pueyrredón'},
+    {val:'p9', label:'Av. Santa Fe y Agüero'},
+    {val:'p10', label:'Av. Santa Fe y Billinghurst'},
+  ];
+
+  seleccionados.forEach(cb => {
+    const id = cb.value;
+    const nombre = cb.parentElement.textContent.trim();
+
+    // DATOS PERSONA
+    const pDiv = document.createElement('div');
+    pDiv.className = 'persona-section';
+    pDiv.innerHTML =
+      '<p class="persona-nombre">' + nombre + '</p>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Mail</label>' +
+        '<input type="email" class="form-input" id="email-' + id + '" placeholder="tu@mail.com"/>' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Teléfono</label>' +
+        '<input type="tel" class="form-input" id="tel-' + id + '" placeholder="Ej: 11 1234-5678" oninput="this.value=this.value.replace(/[^0-9\\s\\-\\+]/g,\'\')"/>' +
+      '</div>';
+    datosDiv.appendChild(pDiv);
+
+    // DIETA
+    const dDiv = document.createElement('div');
+    dDiv.className = 'persona-section';
+    dDiv.innerHTML =
+      '<p class="persona-nombre">' + nombre + '</p>' +
+      '<div class="radio-row" id="diet-row-' + id + '">' +
+      opcDieta.map(op => `
+        <label class="radio-chip" onclick="selectChip(this,'diet-row-${id}')">
+          <input type="radio" name="diet_${id}" value="${op}" style="display:none;">
+          ${op.charAt(0).toUpperCase()+op.slice(1)}
+        </label>`).join('') +
+      '</div>' +
+      '<input type="text" class="form-input" id="diet-otro-' + id + '" placeholder="Especificá..." style="display:none;margin-top:8px;"/>';
+    dietasDiv.appendChild(dDiv);
+
+    document.querySelectorAll('#diet-row-' + id + ' input').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('diet-otro-' + id).style.display = radio.value === 'otro' ? 'block' : 'none';
+      });
+    });
+
+    // TRANSPORTE
+    const tDiv = document.createElement('div');
+    tDiv.className = 'persona-section';
+    const paradasHtml = opcTransporte.map(op => `
+      <label class="radio-chip" onclick="selectParada('${id}',this)">
+        <input type="radio" name="transport_${id}" value="${op.val}" style="display:none;">
+        ${op.label}
+      </label>`).join('');
+
+    tDiv.innerHTML =
+      '<p class="persona-nombre">' + nombre + '</p>' +
+      '<div style="margin-bottom:8px;">' +
+        '<button type="button" class="radio-chip" id="chip-ninguna-' + id + '" onclick="toggleNinguna(\'' + id + '\')">' +
+          'No necesito, voy por mi cuenta' +
+        '</button>' +
+        '<input type="hidden" id="transport-val-' + id + '" value="">' +
+      '</div>' +
+      '<div id="paradas-' + id + '" class="radio-row">' + paradasHtml + '</div>';
+    transporteDiv.appendChild(tDiv);
+  });
+
+  // Pre-poblar respuesta previa
+  if (respuestaPreviaActual && respuestaPreviaActual.tipo === 'yes') {
+    const rp = respuestaPreviaActual;
+    const confs = rp.confs_grupo || {};
+    Object.entries(confs).forEach(([inv_id, c]) => {
+      const emailEl = document.getElementById('email-' + inv_id);
+      const telEl   = document.getElementById('tel-'   + inv_id);
+      if (emailEl && !emailEl.value) emailEl.value = c.email    || rp.email    || '';
+      if (telEl   && !telEl.value)   telEl.value   = c.telefono || rp.telefono || '';
+
+      if (c.restriccion_dieta) {
+        const dietRow = document.getElementById('diet-row-' + inv_id);
+        if (dietRow) {
+          const radio = dietRow.querySelector(`input[value="${c.restriccion_dieta}"]`);
+          if (radio) {
+            radio.checked = true;
+            const chip = radio.closest('.radio-chip');
+            dietRow.querySelectorAll('.radio-chip').forEach(r => r.classList.remove('checked'));
+            if (chip) chip.classList.add('checked');
+            if (c.restriccion_dieta === 'otro') {
+              const otroEl = document.getElementById('diet-otro-' + inv_id);
+              if (otroEl) { otroEl.style.display='block'; otroEl.value=c.detalle_dieta||''; }
+            }
+          }
+        }
+      }
+
+      if (c.transporte) {
+        if (c.transporte === 'ninguna') {
+          const ningBtn    = document.getElementById('chip-ninguna-' + inv_id);
+          const paradasDiv = document.getElementById('paradas-' + inv_id);
+          const hiddenVal  = document.getElementById('transport-val-' + inv_id);
+          if (ningBtn) ningBtn.classList.add('checked');
+          if (hiddenVal) hiddenVal.value = 'ninguna';
+          if (paradasDiv) paradasDiv.style.display = 'none';
+        } else {
+          const paradasDiv = document.getElementById('paradas-' + inv_id);
+          const hiddenVal  = document.getElementById('transport-val-' + inv_id);
+          if (paradasDiv) {
+            const radio = paradasDiv.querySelector(`input[value="${c.transporte}"]`);
+            if (radio) {
+              radio.checked = true;
+              const chip = radio.closest('.radio-chip');
+              paradasDiv.querySelectorAll('.radio-chip').forEach(r => r.classList.remove('checked'));
+              if (chip) chip.classList.add('checked');
+            }
+          }
+          if (hiddenVal) hiddenVal.value = c.transporte;
+        }
+      }
+    });
+  }
+}
+
+function toggleNinguna(id) {
+  const btn = document.getElementById('chip-ninguna-' + id);
+  const paradasDiv = document.getElementById('paradas-' + id);
+  const hiddenVal = document.getElementById('transport-val-' + id);
+  const yaMarcado = btn.classList.contains('checked');
+
+  if (!yaMarcado) {
+    btn.classList.add('checked');
+    hiddenVal.value = 'ninguna';
+    paradasDiv.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('checked'));
+    paradasDiv.querySelectorAll('input').forEach(i => i.checked = false);
+    paradasDiv.style.display = 'none';
+  } else {
+    btn.classList.remove('checked');
+    hiddenVal.value = '';
+    paradasDiv.style.display = 'flex';
+  }
+}
+
+function selectParada(id, el) {
+  const paradasDiv = document.getElementById('paradas-' + id);
+  const btn = document.getElementById('chip-ninguna-' + id);
+  const hiddenVal = document.getElementById('transport-val-' + id);
+
+  paradasDiv.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('checked'));
+  el.classList.add('checked');
+  el.querySelector('input').checked = true;
+  hiddenVal.value = el.querySelector('input').value;
+
+  btn.classList.remove('checked');
+  paradasDiv.style.display = 'flex';
+}
+
+function selectChip(el, rowId) {
+  document.querySelectorAll('#' + rowId + ' .radio-chip').forEach(c => c.classList.remove('checked'));
+  el.classList.add('checked');
+  el.querySelector('input').checked = true;
+  el.querySelector('input').dispatchEvent(new Event('change'));
+}
+
+async function submit(type) {
+  if (type === 'skip') type = 'no';
+  document.getElementById('loader').classList.add('on');
+
+  let payload = {};
+
+  if (type === 'yes') {
+    const seleccionados = [...document.querySelectorAll('input[name="grupo"]:checked')].map(cb => {
+      const id = cb.value;
+      const dietaInput = document.querySelector('input[name="diet_' + id + '"]:checked');
+      const hiddenVal  = document.getElementById('transport-val-' + id);
+      return {
+        id:         id,
+        diet:       dietaInput ? dietaInput.value : '',
+        dietDetail: document.getElementById('diet-otro-' + id) ? document.getElementById('diet-otro-' + id).value : '',
+        transport:  hiddenVal ? hiddenVal.value : '',
+        email:      document.getElementById('email-' + id) ? document.getElementById('email-' + id).value : '',
+        phone:      document.getElementById('tel-'   + id) ? document.getElementById('tel-'   + id).value : '',
+      };
+    });
+
+    const principalSel = seleccionados.find(s => String(s.id) === String(invitadoActual.id)) || seleccionados[0] || {};
+
+    payload = {
+      attendance:    type,
+      invitado_id:   invitadoActual.id,
+      seleccionados: seleccionados,
+      name:          invitadoActual.nombre,
+      email:         principalSel.email || '',
+      phone:         principalSel.phone || '',
+    };
+  } else {
+    payload = {
+      attendance:  type,
+      invitado_id: invitadoActual ? invitadoActual.id : null,
+      name:        document.getElementById('nameNo').value,
+      message:     document.getElementById('msgNo').value,
+    };
+  }
+
+  try {
+    const res = await fetch('https://50mara.com.ar/api/rsvp.php', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const data = await res.json();
+    document.getElementById('loader').classList.remove('on');
+
+    if (!data.ok) { alert('Hubo un error, intentá de nuevo.'); return; }
+
+    if (type === 'yes') {
+      document.getElementById('codeBadge').textContent = data.code;
+      go('s3yes');
+    } else {
+      go('s4no');
+    }
+  } catch (e) {
+    document.getElementById('loader').classList.remove('on');
+    alert('Error de conexión. Intentá de nuevo.');
+  }
+}
+</script>
+</body>
+</html>
